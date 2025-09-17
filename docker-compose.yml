@@ -7,22 +7,10 @@ services:
       environment:
           - GF_SECURITY_ADMIN_USER=admin
           - GF_SECURITY_ADMIN_PASSWORD=admin
-          - GF_SERVER_ROOT_URL=http://localhost:3000/grafana
+          - GF_SERVER_ROOT_URL=http://localhost:3000
           - GF_SERVER_SERVE_FROM_SUB_PATH=true
-          - GF_AUTH_INFLUXDB_ENABLED=true
-          # SMTP Configuration
-          # - GF_SMTP_ENABLED=true
-          # - GF_SMTP_HOST=dosiujad
-          # - GF_SMTP_USER=asdji
-          # - GF_SMTP_PASSWORD=aowid
-          # - GF_SMTP_FROM_ADDRESS=oaiwd
-          # - GF_SMTP_FROM_NAME=Grafana Alerts
-          # - GF_SMTP_STARTTLS_POLICY=MandatoryStartTLS
-      volumes:
-          - ./grafana-data:/var/lib/grafana
+          - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+          - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+          - AWS_REGION=us-east-1
       restart: always
       user: "1000"
-
-
-volumes:
-  grafana-data:

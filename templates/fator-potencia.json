@@ -1,0 +1,88 @@
+{
+  "id": null,
+  "uid": "consumo-energia",
+  "title": "Dashboard de Sensores",
+  "schemaVersion": 38,
+  "version": 1,
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Fator de Potência",
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "json-api"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "urlPath": "/sensores",
+          "method": "GET",
+          "fields": [
+            { "name": "time", "jsonPath": "items[*].ts" },
+            { "name": "value", "jsonPath": "items[*].data" },
+            { "name": "deviceId", "jsonPath": "items[*].deviceId" }
+          ]
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "kWh" }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Mínimo",
+      "datasource": { "type": "marcusolsson-json-datasource", "uid": "json-api" },
+      "targets": [
+        {
+          "refId": "B",
+          "urlPath": "/sensores",
+          "method": "GET",
+          "fields": [{ "name": "value", "jsonPath": "items[*].data" }]
+        }
+      ],
+      "options": { "reduceOptions": { "calcs": ["min"] } }
+    },
+    {
+      "type": "stat",
+      "title": "Máximo",
+      "datasource": { "type": "marcusolsson-json-datasource", "uid": "json-api" },
+      "targets": [
+        {
+          "refId": "C",
+          "urlPath": "/sensores",
+          "method": "GET",
+          "fields": [{ "name": "value", "jsonPath": "items[*].data" }]
+        }
+      ],
+      "options": { "reduceOptions": { "calcs": ["max"] } }
+    },
+    {
+      "type": "stat",
+      "title": "Média",
+      "datasource": { "type": "marcusolsson-json-datasource", "uid": "json-api" },
+      "targets": [
+        {
+          "refId": "D",
+          "urlPath": "/sensores",
+          "method": "GET",
+          "fields": [{ "name": "value", "jsonPath": "items[*].data" }]
+        }
+      ],
+      "options": { "reduceOptions": { "calcs": ["mean"] } }
+    },
+    {
+      "type": "stat",
+      "title": "Mediana",
+      "datasource": { "type": "marcusolsson-json-datasource", "uid": "json-api" },
+      "targets": [
+        {
+          "refId": "E",
+          "urlPath": "/sensores",
+          "method": "GET",
+          "fields": [{ "name": "value", "jsonPath": "items[*].data" }]
+        }
+      ],
+      "options": { "reduceOptions": { "calcs": ["median"] } }
+    }
+  ]
+}
