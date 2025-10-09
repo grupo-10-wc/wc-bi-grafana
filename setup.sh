@@ -4,7 +4,7 @@ sudo apt update && sudo apt upgrade -y
 
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
-sudo apt install git
+sudo apt install git -y
 
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -21,15 +21,12 @@ sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-sudo groupadd docker
-
 sudo usermod -aG docker $USER
-
-newgrp docker
 
 git clone https://github.com/grupo-10-wc/wc-bi-grafana.git
 
-cd ~/faculdade/wc-bi-grafana
+cd wc-bi-grafana
+
 docker compose up --build -d
 
 if [ $? -eq 0 ]; then
