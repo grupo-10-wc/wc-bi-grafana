@@ -2,6 +2,8 @@ services:
   wc-grafana:
       image: grafana/grafana:latest
       container_name: grafana
+      env_file:
+          - .env
       ports:
           - "80:3000"
       environment:
@@ -11,6 +13,7 @@ services:
           - GF_SERVER_SERVE_FROM_SUB_PATH=true
           - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
           - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+          - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
           - AWS_REGION=us-east-1
       restart: always
       user: "1000"

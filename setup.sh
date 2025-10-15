@@ -27,7 +27,7 @@ git clone https://github.com/grupo-10-wc/wc-bi-grafana.git
 
 cd wc-bi-grafana
 
-docker compose up --build -d
+sudo docker compose up --build -d
 
 if [ $? -eq 0 ]; then
     echo -e "\033[1;32mContainers iniciados com sucesso!\033[0m"

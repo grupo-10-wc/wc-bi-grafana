@@ -1,0 +1,166 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": null,
+  "iteration": 1729010000000,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "cloudwatch"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
+      "targets": [
+        {
+          "namespace": "AWS/ApiGateway",
+          "metricName": "5XXError",
+          "dimensions": {
+            "ApiName": "apiSensores",
+            "Stage": "dev"
+          },
+          "region": "us-east-1",
+          "statistic": "Sum",
+          "period": "300",
+          "refId": "A"
+        }
+      ],
+      "title": "API Gateway - Erros 5XX",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "cloudwatch"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "targets": [
+        {
+          "namespace": "AWS/ApiGateway",
+          "metricName": "Count",
+          "dimensions": {
+            "ApiName": "apiSensores",
+            "Stage": "dev"
+          },
+          "region": "us-east-1",
+          "statistic": "Sum",
+          "period": "300",
+          "refId": "B"
+        }
+      ],
+      "title": "API Gateway - Total de Requisições",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "cloudwatch"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "targets": [
+        {
+          "namespace": "AWS/ApiGateway",
+          "metricName": "Latency",
+          "dimensions": {
+            "ApiName": "apiSensores",
+            "Stage": "dev"
+          },
+          "region": "us-east-1",
+          "statistic": "Average",
+          "period": "300",
+          "refId": "C"
+        }
+      ],
+      "title": "Latência Média da API",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch-logs",
+        "uid": "cloudwatch"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 4,
+      "options": {
+        "showLabels": true,
+        "showTime": true
+      },
+      "targets": [
+        {
+          "region": "us-east-1",
+          "logGroupNames": ["/aws/apigateway/apiSensores"],
+          "queryMode": "Logs",
+          "query": "fields @timestamp, @message | sort @timestamp desc | limit 20",
+          "refId": "D"
+        }
+      ],
+      "title": "CloudWatch Logs - Últimos Eventos",
+      "type": "logs"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["aws", "apigateway", "cloudwatch"],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "",
+  "title": "API Gateway Metrics & Logs (CloudWatch)",
+  "version": 1
+}
