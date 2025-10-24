@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 0,
   "links": [],
   "panels": [
     {
@@ -347,12 +346,12 @@
     "list": []
   },
   "time": {
-    "from": "2025-10-19T21:39:36.332Z",
-    "to": "2025-10-23T23:09:17.030Z"
+    "from": "2025-10-17T20:54:45.983Z",
+    "to": "2025-10-21T22:24:26.681Z"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Dashboard de Sensores",
+  "title": "Dashboard de Temperatura",
   "uid": "consumo-energia",
-  "version": 6
+  "version": 8
 }
