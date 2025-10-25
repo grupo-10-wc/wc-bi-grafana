@@ -1,29 +1,51 @@
-name: CI
+name: Deploy Grafana para a EC2
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Build da imagem Docker
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          docker build -t grafana-custom:latest .
+
+      - name: Salvar Docker image como tar
+        run: docker save grafana-custom:latest -o grafana.tar
+
+      - name: Copiar imagem para a EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          source: "grafana.tar"
+          target: "/home/ubuntu/grafana.tar"
+
+      - name: Carregar e reiniciar container Grafana
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            echo "Carregando nova imagem Grafana..."
+            docker load -i /home/ubuntu/grafana.tar
+
+            echo "Terminando antigo container Grafana..."
+            docker stop grafana || true
+            docker rm grafana || true
+
+            echo "Iniciando novo container Grafana..."
+            docker run -d --name grafana -p 80:3000 grafana-custom:latest
+
+            echo "Sucesso."
+
+            rm /home/ubuntu/grafana.tar
