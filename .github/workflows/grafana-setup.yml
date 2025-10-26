@@ -20,6 +20,9 @@ jobs:
       - name: Salvar Docker image como tar
         run: docker save grafana-custom:latest -o grafana.tar
 
+      - name: Fix file permissions
+        run: chmod 644 grafana.tar
+
       - name: Copiar imagem para a EC2
         uses: appleboy/scp-action@v0.1.7
         with:
