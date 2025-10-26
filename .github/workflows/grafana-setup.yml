@@ -46,7 +46,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           source: "grafana.tar"
-          target: "/home/ubuntu"
+          target: "/home/ubuntu/"
           tar_tmp_path: ""
 
       - name: Carregar e reiniciar container Grafana
