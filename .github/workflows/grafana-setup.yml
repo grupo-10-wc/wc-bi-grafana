@@ -15,7 +15,7 @@ jobs:
 
       - name: Build da imagem Docker
         run: |
-          docker build -t grafana:latest .
+          docker build -t grafana-custom:latest .
 
       - name: Salvar Docker image como tar
         run: docker save grafana-custom:latest -o grafana.tar
