@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,7 +15,7 @@ jobs:
 
       - name: Build da imagem Docker
         run: |
-          docker build -t grafana-custom:latest .
+          docker build -t grafana:latest .
 
       - name: Salvar Docker image como tar
         run: docker save grafana-custom:latest -o grafana.tar
@@ -23,6 +23,10 @@ jobs:
       - name: Fix file permissions
         run: chmod 644 grafana.tar
 
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
       - name: Copiar imagem para a EC2
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -31,6 +35,7 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           source: "grafana.tar"
           target: "/home/ubuntu/grafana.tar"
+          tar_tmp_path: ""
 
       - name: Carregar e reiniciar container Grafana
         uses: appleboy/ssh-action@v1.2.0
@@ -46,8 +51,10 @@ jobs:
             docker stop grafana || true
             docker rm grafana || true
 
-            echo "Iniciando novo container Grafana..."
-            docker run -d --name grafana -p 80:3000 grafana-custom:latest
+            echo "Iniciando novo container Grafana com Docker Compose..."
+            cd /home/ubuntu/seu-projeto
+            docker compose down
+            docker compose up -d
 
             echo "Sucesso."
 
