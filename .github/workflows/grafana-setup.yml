@@ -25,6 +25,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: build
     
     steps:
       - name: Copiar imagem para a EC2
