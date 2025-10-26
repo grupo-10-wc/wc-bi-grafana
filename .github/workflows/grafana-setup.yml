@@ -46,7 +46,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           source: "grafana.tar"
-          target: "/home/ubuntu/grafana.tar"
+          target: "/home/ubuntu"
           tar_tmp_path: ""
 
       - name: Carregar e reiniciar container Grafana
@@ -64,7 +64,7 @@ jobs:
             docker rm grafana || true
 
             echo "Iniciando novo container Grafana com Docker Compose..."
-            cd /home/ubuntu/seu-projeto
+            cd /home/ubuntu/wc-bi-grafana
             docker compose down
             docker compose up -d
 
