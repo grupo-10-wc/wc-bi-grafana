@@ -15,5 +15,12 @@ services:
           - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
           - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
           - AWS_REGION=us-east-1
+      volumes:
+          # Persiste dados e configurações internas do Grafana
+          - grafana-storage:/var/lib/grafana
       restart: always
       user: "1000"
+
+volumes:
+  # Volume nomeado para persistência entre reinícios/recriações
+  grafana-storage:
