@@ -38,7 +38,7 @@
           "namespace": "AWS/ApiGateway",
           "metricName": "5XXError",
           "dimensions": {
-            "ApiName": "apiSensores",
+            "ApiName": "wcRestApi",
             "Stage": "dev"
           },
           "region": "us-east-1",
@@ -73,7 +73,7 @@
           "namespace": "AWS/ApiGateway",
           "metricName": "Count",
           "dimensions": {
-            "ApiName": "apiSensores",
+            "ApiName": "wcRestApi",
             "Stage": "dev"
           },
           "region": "us-east-1",
@@ -108,7 +108,7 @@
           "namespace": "AWS/ApiGateway",
           "metricName": "Latency",
           "dimensions": {
-            "ApiName": "apiSensores",
+            "ApiName": "wcRestApi",
             "Stage": "dev"
           },
           "region": "us-east-1",
@@ -139,7 +139,7 @@
       "targets": [
         {
           "region": "us-east-1",
-          "logGroupNames": ["/aws/apigateway/apiSensores"],
+          "logGroupNames": ["/aws/apigateway/wcRestApi"],
           "queryMode": "Logs",
           "query": "fields @timestamp, @message | sort @timestamp desc | limit 20",
           "refId": "D"
