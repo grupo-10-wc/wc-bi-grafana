@@ -12,112 +12,52 @@
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "type": "dashboard"
-      },
-      {
-        "datasource": "JSON API",
-        "enable": true,
-        "hide": false,
-        "iconColor": "red",
-        "name": "Picos Críticos",
-        "target": {
-          "method": "GET",
-          "url": "${BASE_URL}/tensao/picos?location=$location&threshold=242"
-        }
-      },
-      {
-        "datasource": "JSON API",
-        "enable": true,
-        "hide": false,
-        "iconColor": "blue",
-        "name": "Depressões Críticas",
-        "target": {
-          "method": "GET",
-          "url": "${BASE_URL}/tensao/depressoes?location=$location&threshold=187"
-        }
       }
     ]
   },
+  "description": "Dashboard para análise de qualidade de tensão elétrica - Monitoramento de picos, depressões e dispositivos afetados",
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "id": 21,
+  "graphTooltip": 1,
+  "id": 0,
   "links": [],
   "panels": [
     {
       "fieldConfig": {
-        "defaults": {
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "orange",
-                "value": 201
-              },
-              {
-                "color": "green",
-                "value": 210
-              },
-              {
-                "color": "orange",
-                "value": 231
-              },
-              {
-                "color": "red",
-                "value": 242
-              }
-            ]
-          },
-          "unit": "volt"
-        },
+        "defaults": {},
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 6,
+        "h": 5,
+        "w": 24,
         "x": 0,
         "y": 0
       },
       "id": 1,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
         },
-        "showPercentChange": false,
-        "textMode": "value_and_name",
-        "wideLayout": true
+        "content": "# 📊 Monitoramento de Qualidade de Tensão Elétrica\n\nAnálise em tempo real da qualidade de tensão para **Rack B - Sala de Servidores** usando sensor **PZEM-004T**.\n\n**Tensão Nominal**: 220V | **Faixa Normal**: 201V - 231V (ANEEL) | **Crítico**: < 187V ou > 242V\n\n🟢 **Normal** | 🟡 **Pico/Depressão Moderado** | 🔴 **Crítico**",
+        "mode": "markdown"
       },
       "pluginVersion": "12.2.1",
-      "targets": [
-        {
-          "datasource": "JSON API",
-          "jsonPath": "$.avg_voltage",
-          "method": "GET",
-          "refId": "A",
-          "url": "${BASE_URL}/tensao/estatisticas?location=$location&device=$device"
-        }
-      ],
-      "title": "Tensão Média",
-      "type": "stat"
+      "title": "Informações do Dashboard",
+      "type": "text"
     },
     {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
       "fieldConfig": {
         "defaults": {
-          "decimals": 2,
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -131,67 +71,20 @@
                 "value": 187
               },
               {
-                "color": "green",
+                "color": "yellow",
                 "value": 201
-              }
-            ]
-          },
-          "unit": "volt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 6,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "value_and_name",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.1",
-      "targets": [
-        {
-          "datasource": "JSON API",
-          "jsonPath": "$.min_voltage",
-          "method": "GET",
-          "refId": "A",
-          "url": "${BASE_URL}/tensao/estatisticas?location=$location&device=$device"
-        }
-      ],
-      "title": "Tensão Mínima",
-      "type": "stat"
-    },
-    {
-      "fieldConfig": {
-        "defaults": {
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+              },
               {
                 "color": "green",
-                "value": 0
+                "value": 205
+              },
+              {
+                "color": "yellow",
+                "value": 231
               },
               {
                 "color": "orange",
-                "value": 231
+                "value": 238
               },
               {
                 "color": "red",
@@ -204,79 +97,14 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 7,
         "w": 6,
-        "x": 12,
-        "y": 0
+        "x": 0,
+        "y": 5
       },
-      "id": 3,
+      "id": 2,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "value_and_name",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.1",
-      "targets": [
-        {
-          "datasource": "JSON API",
-          "jsonPath": "$.max_voltage",
-          "method": "GET",
-          "refId": "A",
-          "url": "${BASE_URL}/tensao/estatisticas?location=$location&device=$device"
-        }
-      ],
-      "title": "Tensão Máxima",
-      "type": "stat"
-    },
-    {
-      "fieldConfig": {
-        "defaults": {
-          "decimals": 2,
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "orange",
-                "value": 50
-              },
-              {
-                "color": "green",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 18,
-        "y": 0
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "value",
+        "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
@@ -295,17 +123,289 @@
       "pluginVersion": "12.2.1",
       "targets": [
         {
-          "datasource": "JSON API",
-          "jsonPath": "$.voltage_stability",
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.statistics.media",
+              "name": "Tensão Média",
+              "type": "number"
+            }
+          ],
           "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
           "refId": "A",
-          "url": "${BASE_URL}/tensao/estatisticas?location=$location&device=$device"
+          "url": "${BASE_URL}/tensao/estatisticas",
+          "urlPath": "/tensao/estatisticas"
         }
       ],
-      "title": "Estabilidade da Tensão",
+      "title": "Tensão Média",
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "orange",
+                "value": 85
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 6,
+        "y": 5
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.quality.quality_score",
+              "name": "Score de Qualidade",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/estatisticas",
+          "urlPath": "/tensao/estatisticas"
+        }
+      ],
+      "title": "Score de Qualidade",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "orange",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 12,
+        "y": 5
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.count",
+              "name": "Total de Picos",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/picos",
+          "urlPath": "/tensao/picos"
+        }
+      ],
+      "title": "Total de Picos de Tensão",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "orange",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 18,
+        "y": 5
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.count",
+              "name": "Total de Depressões",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/depressoes",
+          "urlPath": "/tensao/depressoes"
+        }
+      ],
+      "title": "Total de Depressões de Tensão",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -315,13 +415,13 @@
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
+            "axisLabel": "Tensão (V)",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
+            "fillOpacity": 20,
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -330,7 +430,7 @@
             "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 2,
-            "pointSize": 5,
+            "pointSize": 4,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -342,10 +442,111 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "line+area"
             }
           },
+          "decimals": 1,
           "mappings": [],
+          "max": 250,
+          "min": 180,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 187
+              },
+              {
+                "color": "transparent",
+                "value": 201
+              },
+              {
+                "color": "transparent",
+                "value": 231
+              },
+              {
+                "color": "red",
+                "value": 242
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "min",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.data[*].ts",
+              "name": "Time",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.body.data[*].tensao",
+              "name": "Tensão",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/geral",
+          "urlPath": "/tensao/geral"
+        }
+      ],
+      "title": "Histórico de Tensão - Série Temporal",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "max": 250,
+          "min": 180,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -355,15 +556,23 @@
               },
               {
                 "color": "orange",
+                "value": 187
+              },
+              {
+                "color": "yellow",
                 "value": 201
               },
               {
                 "color": "green",
-                "value": 210
+                "value": 205
+              },
+              {
+                "color": "yellow",
+                "value": 231
               },
               {
                 "color": "orange",
-                "value": 231
+                "value": 238
               },
               {
                 "color": "red",
@@ -377,213 +586,872 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
+        "w": 8,
         "x": 0,
-        "y": 4
+        "y": 22
       },
-      "id": 5,
+      "id": 7,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "text": {}
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.statistics.media",
+              "name": "Tensão Média",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/estatisticas",
+          "urlPath": "/tensao/estatisticas"
+        }
+      ],
+      "title": "Medidor de Tensão Atual",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 22
+      },
+      "id": 8,
+      "options": {
+        "displayLabels": [
+          "percent",
+          "name"
+        ],
         "legend": {
           "calcs": [],
-          "displayMode": "list",
+          "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": true,
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
         "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
+          "mode": "single",
           "sort": "none"
         }
       },
       "pluginVersion": "12.2.1",
       "targets": [
         {
-          "datasource": "JSON API",
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
           "fields": [
             {
-              "jsonPath": "$.ts",
-              "name": "time",
-              "type": "time"
-            },
-            {
-              "jsonPath": "$.voltage",
-              "name": "voltage",
+              "jsonPath": "$.body.distribution.normal",
+              "name": "Normal",
               "type": "number"
             },
             {
-              "jsonPath": "$.device",
-              "name": "device",
+              "jsonPath": "$.body.distribution.picos_moderados",
+              "name": "Picos Moderados",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.distribution.picos_criticos",
+              "name": "Picos Críticos",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.distribution.depressoes_moderadas",
+              "name": "Depressões Moderadas",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.distribution.depressoes_criticas",
+              "name": "Depressões Críticas",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/estatisticas",
+          "urlPath": "/tensao/estatisticas"
+        }
+      ],
+      "title": "Distribuição de Qualidade de Tensão",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 22
+      },
+      "id": 9,
+      "options": {
+        "displayLabels": [
+          "percent",
+          "name"
+        ],
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.by_type.picos",
+              "name": "Apenas Picos",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.by_type.depressoes",
+              "name": "Apenas Depressões",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.by_type.ambos",
+              "name": "Ambos",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/aparelhos-afetados/count",
+          "urlPath": "/tensao/aparelhos-afetados/count"
+        }
+      ],
+      "title": "Tipos de Problemas por Dispositivo",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Tensão (V)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "points",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 6,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Tensão"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 30
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "count"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.picos[*].ts",
+              "name": "Time",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.body.picos[*].tensao",
+              "name": "Tensão",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/picos",
+          "urlPath": "/tensao/picos"
+        }
+      ],
+      "title": "Picos de Tensão Detectados",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Tensão (V)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "points",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 6,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Tensão"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 30
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "min",
+            "count"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "asc"
+        }
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.depressoes[*].ts",
+              "name": "Time",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.body.depressoes[*].tensao",
+              "name": "Tensão",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/depressoes",
+          "urlPath": "/tensao/depressoes"
+        }
+      ],
+      "title": "Depressões de Tensão Detectadas",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "device_id"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Dispositivo"
+              },
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_incidents"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Incidentes"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 10
+                    },
+                    {
+                      "color": "orange",
+                      "value": 30
+                    },
+                    {
+                      "color": "red",
+                      "value": 50
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "picos"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Picos"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-RdYlGr"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "depressoes"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Depressões"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-RdYlGr"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_tensao"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Tensão Máxima (V)"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "unit",
+                "value": "volt"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min_tensao"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Tensão Mínima (V)"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "unit",
+                "value": "volt"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "last_incident"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Último Incidente"
+              },
+              {
+                "id": "custom.width",
+                "value": 180
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "severidade_maxima"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Severidade"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "critico": {
+                        "color": "red",
+                        "index": 1,
+                        "text": "CRÍTICO"
+                      },
+                      "moderado": {
+                        "color": "yellow",
+                        "index": 0,
+                        "text": "Moderado"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "status"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Status"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "atencao": {
+                        "color": "orange",
+                        "index": 1,
+                        "text": "ATENÇÃO"
+                      },
+                      "atencao_urgente": {
+                        "color": "red",
+                        "index": 2,
+                        "text": "🚨 URGENTE"
+                      },
+                      "monitorar": {
+                        "color": "yellow",
+                        "index": 0,
+                        "text": "Monitorar"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 12,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Total Incidentes"
+          }
+        ]
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.devices[*].device_id",
+              "name": "device_id",
               "type": "string"
             },
             {
-              "jsonPath": "$.status",
+              "jsonPath": "$.body.devices[*].total_incidents",
+              "name": "total_incidents",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.devices[*].picos",
+              "name": "picos",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.devices[*].depressoes",
+              "name": "depressoes",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.devices[*].max_tensao",
+              "name": "max_tensao",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.devices[*].min_tensao",
+              "name": "min_tensao",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.devices[*].last_incident",
+              "name": "last_incident",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.body.devices[*].severidade_maxima",
+              "name": "severidade_maxima",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.body.devices[*].status",
               "name": "status",
               "type": "string"
             }
           ],
           "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
           "refId": "A",
-          "url": "${BASE_URL}/tensao/geral?location=$location&device=$device"
+          "url": "${BASE_URL}/tensao/aparelhos-afetados/list",
+          "urlPath": "/tensao/aparelhos-afetados/list"
         }
       ],
-      "title": "Dados de Tensão Geral (Série Temporal)",
-      "type": "timeseries"
+      "title": "Dispositivos Afetados - Detalhamento",
+      "type": "table"
     },
     {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 5
-              },
-              {
-                "color": "orange",
-                "value": 10
-              },
-              {
-                "color": "red",
-                "value": 20
-              }
-            ]
+          "color": {
+            "mode": "thresholds"
           },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 0,
-        "y": 12
-      },
-      "id": 6,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "value_and_name",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.1",
-      "targets": [
-        {
-          "datasource": "JSON API",
-          "jsonPath": "$[*]",
-          "method": "GET",
-          "refId": "A",
-          "url": "${BASE_URL}/tensao/picos?location=$location&device=$device"
-        }
-      ],
-      "title": "Total de Picos de Tensão",
-      "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "count"
-            ]
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 5
-              },
-              {
-                "color": "orange",
-                "value": 10
-              },
-              {
-                "color": "red",
-                "value": 20
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 8,
-        "y": 12
-      },
-      "id": 7,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "value_and_name",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.1",
-      "targets": [
-        {
-          "datasource": "JSON API",
-          "jsonPath": "$[*]",
-          "method": "GET",
-          "refId": "A",
-          "url": "${BASE_URL}/tensao/depressoes?location=$location&device=$device"
-        }
-      ],
-      "title": "Total de Depressões de Tensão",
-      "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "count"
-            ]
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "fieldConfig": {
-        "defaults": {
+          "decimals": 0,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -602,7 +1470,7 @@
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 8
               }
             ]
           },
@@ -611,12 +1479,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 6,
         "w": 8,
-        "x": 16,
-        "y": 12
+        "x": 0,
+        "y": 49
       },
-      "id": 8,
+      "id": 13,
       "options": {
         "colorMode": "background",
         "graphMode": "area",
@@ -637,29 +1505,39 @@
       "pluginVersion": "12.2.1",
       "targets": [
         {
-          "datasource": "JSON API",
-          "jsonPath": "$.total_affected",
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.body.devices_affected",
+              "name": "Dispositivos Afetados",
+              "type": "number"
+            }
+          ],
           "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
           "refId": "A",
-          "url": "${BASE_URL}/tensao/aparelhos-afetados/count?location=$location&issue_type=all"
+          "url": "${BASE_URL}/tensao/aparelhos-afetados/count",
+          "urlPath": "/tensao/aparelhos-afetados/count"
         }
       ],
-      "title": "Aparelhos Afetados",
+      "title": "Dispositivos com Problemas",
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "footer": {
-              "reducers": []
-            },
-            "inspect": false
+          "color": {
+            "mode": "thresholds"
           },
+          "decimals": 1,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -669,133 +1547,185 @@
                 "value": 0
               },
               {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Tensão (V)"
-            },
-            "properties": [
+                "color": "yellow",
+                "value": 30
+              },
               {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "orange",
-                      "value": 231
-                    },
-                    {
-                      "color": "red",
-                      "value": 242
-                    }
-                  ]
-                }
+                "color": "orange",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 70
               }
             ]
           },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Severidade"
-            },
-            "properties": [
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "critical": {
-                        "color": "red",
-                        "text": "🔴 Crítico"
-                      },
-                      "warning": {
-                        "color": "orange",
-                        "text": "⚠️ Alerta"
-                      }
-                    },
-                    "type": "value"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+          "unit": "percent"
+        },
+        "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 16
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 49
       },
-      "id": 9,
+      "id": 14,
       "options": {
-        "cellHeight": "sm",
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Tensão (V)"
-          }
-        ]
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
       "pluginVersion": "12.2.1",
       "targets": [
         {
-          "datasource": "JSON API",
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
           "fields": [
             {
-              "jsonPath": "$.ts",
-              "name": "Timestamp",
-              "type": "time"
-            },
-            {
-              "jsonPath": "$.voltage",
-              "name": "Tensão (V)",
+              "jsonPath": "$.body.percentage_affected",
+              "name": "% Dispositivos Afetados",
               "type": "number"
-            },
+            }
+          ],
+          "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
+          "refId": "A",
+          "url": "${BASE_URL}/tensao/aparelhos-afetados/count",
+          "urlPath": "/tensao/aparelhos-afetados/count"
+        }
+      ],
+      "title": "Percentual de Dispositivos Afetados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
             {
-              "jsonPath": "$.device",
-              "name": "Dispositivo",
-              "type": "string"
-            },
+              "options": {
+                "boa": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "BOA"
+                },
+                "critica": {
+                  "color": "dark-red",
+                  "index": 4,
+                  "text": "CRÍTICA"
+                },
+                "excelente": {
+                  "color": "dark-green",
+                  "index": 0,
+                  "text": "EXCELENTE"
+                },
+                "regular": {
+                  "color": "yellow",
+                  "index": 2,
+                  "text": "REGULAR"
+                },
+                "ruim": {
+                  "color": "orange",
+                  "index": 3,
+                  "text": "RUIM"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 49
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
+          "fields": [
             {
-              "jsonPath": "$.location",
-              "name": "Local",
-              "type": "string"
-            },
-            {
-              "jsonPath": "$.deviation_percent",
-              "name": "Desvio (%)",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.severity",
-              "name": "Severidade",
+              "jsonPath": "$.body.quality.classification",
+              "name": "Classificação de Qualidade",
               "type": "string"
             }
           ],
           "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
           "refId": "A",
-          "url": "${BASE_URL}/tensao/picos?location=$location&device=$device"
+          "url": "${BASE_URL}/tensao/estatisticas",
+          "urlPath": "/tensao/estatisticas"
         }
       ],
-      "title": "Detalhes dos Picos de Tensão",
-      "type": "table"
+      "title": "Classificação de Qualidade de Energia",
+      "type": "stat"
     },
     {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_JSON_API}"
+      },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "custom": {
             "align": "auto",
             "cellOptions": {
@@ -813,10 +1743,6 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -825,9 +1751,43 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Tensão (V)"
+              "options": "ts"
             },
             "properties": [
+              {
+                "id": "displayName",
+                "value": "Timestamp"
+              },
+              {
+                "id": "custom.width",
+                "value": 180
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tensao"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Tensão (V)"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "unit",
+                "value": "volt"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
               {
                 "id": "thresholds",
                 "value": {
@@ -842,158 +1802,24 @@
                       "value": 187
                     },
                     {
-                      "color": "green",
+                      "color": "yellow",
                       "value": 201
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Severidade"
-            },
-            "properties": [
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "critical": {
-                        "color": "red",
-                        "text": "🔴 Crítico"
-                      },
-                      "warning": {
-                        "color": "orange",
-                        "text": "⚠️ Alerta"
-                      }
                     },
-                    "type": "value"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 16
-      },
-      "id": 10,
-      "options": {
-        "cellHeight": "sm",
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "Tensão (V)"
-          }
-        ]
-      },
-      "pluginVersion": "12.2.1",
-      "targets": [
-        {
-          "datasource": "JSON API",
-          "fields": [
-            {
-              "jsonPath": "$.ts",
-              "name": "Timestamp",
-              "type": "time"
-            },
-            {
-              "jsonPath": "$.voltage",
-              "name": "Tensão (V)",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.device",
-              "name": "Dispositivo",
-              "type": "string"
-            },
-            {
-              "jsonPath": "$.location",
-              "name": "Local",
-              "type": "string"
-            },
-            {
-              "jsonPath": "$.deviation_percent",
-              "name": "Desvio (%)",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.severity",
-              "name": "Severidade",
-              "type": "string"
-            }
-          ],
-          "method": "GET",
-          "refId": "A",
-          "url": "${BASE_URL}/tensao/depressoes?location=$location&device=$device"
-        }
-      ],
-      "title": "Detalhes das Depressões de Tensão",
-      "type": "table"
-    },
-    {
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "footer": {
-              "reducers": []
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Total de Problemas"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
                     {
                       "color": "green",
-                      "value": 0
+                      "value": 205
                     },
                     {
                       "color": "yellow",
-                      "value": 5
+                      "value": 231
                     },
                     {
                       "color": "orange",
-                      "value": 10
+                      "value": 238
                     },
                     {
                       "color": "red",
-                      "value": 20
+                      "value": 242
                     }
                   ]
                 }
@@ -1003,78 +1829,69 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Severidade"
+              "options": "device_id"
             },
             "properties": [
+              {
+                "id": "displayName",
+                "value": "Dispositivo"
+              },
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "status"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Status"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
               {
                 "id": "mappings",
                 "value": [
                   {
                     "options": {
-                      "critical": {
-                        "color": "red",
-                        "text": "🔴 Crítico"
+                      "depressao": {
+                        "color": "orange",
+                        "index": 2,
+                        "text": "Depressão"
+                      },
+                      "depressao_critica": {
+                        "color": "dark-red",
+                        "index": 4,
+                        "text": "🔴 Depressão Crítica"
                       },
                       "normal": {
                         "color": "green",
-                        "text": "✅ Normal"
+                        "index": 0,
+                        "text": "Normal"
                       },
-                      "warning": {
-                        "color": "orange",
-                        "text": "⚠️ Alerta"
+                      "pico": {
+                        "color": "yellow",
+                        "index": 1,
+                        "text": "Pico"
+                      },
+                      "pico_critico": {
+                        "color": "red",
+                        "index": 3,
+                        "text": "🔴 Pico Crítico"
                       }
                     },
                     "type": "value"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Picos"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "transparent",
-                      "value": 0
-                    },
-                    {
-                      "color": "semi-dark-orange",
-                      "value": 1
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Depressões"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "transparent",
-                      "value": 0
-                    },
-                    {
-                      "color": "semi-dark-blue",
-                      "value": 1
-                    }
-                  ]
-                }
               }
             ]
           }
@@ -1084,273 +1901,157 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 55
       },
-      "id": 11,
+      "id": 16,
       "options": {
         "cellHeight": "sm",
         "showHeader": true,
         "sortBy": [
           {
             "desc": true,
-            "displayName": "Total de Problemas"
+            "displayName": "Timestamp"
           }
         ]
       },
       "pluginVersion": "12.2.1",
       "targets": [
         {
-          "datasource": "JSON API",
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_JSON_API}"
+          },
           "fields": [
             {
-              "jsonPath": "$.device",
-              "name": "Dispositivo",
+              "jsonPath": "$.body.data[*].ts",
+              "name": "ts",
               "type": "string"
             },
             {
-              "jsonPath": "$.location",
-              "name": "Local",
+              "jsonPath": "$.body.data[*].tensao",
+              "name": "tensao",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.body.data[*].device_id",
+              "name": "device_id",
               "type": "string"
             },
             {
-              "jsonPath": "$.total_issues",
-              "name": "Total de Problemas",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.picos_count",
-              "name": "Picos",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.depressoes_count",
-              "name": "Depressões",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.max_voltage_recorded",
-              "name": "Tensão Máxima (V)",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.min_voltage_recorded",
-              "name": "Tensão Mínima (V)",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.last_issue_ts",
-              "name": "Último Problema",
-              "type": "time"
-            },
-            {
-              "jsonPath": "$.severity",
-              "name": "Severidade",
+              "jsonPath": "$.body.data[*].status",
+              "name": "status",
               "type": "string"
             }
           ],
           "method": "GET",
+          "queryParams": "location=Rack B - Sala de Servidores",
           "refId": "A",
-          "url": "${BASE_URL}/tensao/aparelhos-afetados/list?location=$location&issue_type=all"
+          "url": "${BASE_URL}/tensao/geral",
+          "urlPath": "/tensao/geral"
         }
       ],
-      "title": "Lista Detalhada de Aparelhos Afetados",
+      "title": "Histórico Completo de Medições de Tensão",
       "type": "table"
     },
     {
       "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 5
-              },
-              {
-                "color": "orange",
-                "value": 10
-              },
-              {
-                "color": "red",
-                "value": 20
-              }
-            ]
-          }
-        },
+        "defaults": {},
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
-        "y": 34
+        "y": 65
       },
-      "id": 12,
+      "id": 17,
       "options": {
-        "displayMode": "gradient",
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
         },
-        "maxVizHeight": 300,
-        "minVizHeight": 16,
-        "minVizWidth": 8,
-        "namePlacement": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true,
-        "sizing": "auto",
-        "valueMode": "color"
+        "content": "## 📊 Como Interpretar este Dashboard\n\n### 🎯 Valores de Referência ANEEL:\n\n- **Tensão Nominal**: 220V\n- **Faixa Normal**: 201V - 231V (-10% a +5%)\n- **Depressão Crítica**: < 187V (-15%)\n- **Pico Crítico**: > 242V (+10%)\n\n### ⚡ Classificação de Problemas:\n\n#### Picos de Tensão:\n- **Moderado** 🟡: Entre 231V e 242V\n- **Crítico** 🔴: Acima de 242V\n- **Riscos**: Queima de componentes eletrônicos, redução da vida útil de equipamentos\n\n#### Depressões de Tensão:\n- **Moderado** 🟡: Entre 187V e 201V\n- **Crítico** 🔴: Abaixo de 187V\n- **Riscos**: Desligamentos inesperados, mau funcionamento, perda de dados\n\n### 🎚️ Score de Qualidade:\n\n- **95-100**: 🟢 Excelente - Energia de qualidade premium\n- **85-94**: 🟢 Boa - Dentro dos padrões aceitáveis\n- **70-84**: 🟡 Regular - Atenção recomendada\n- **50-69**: 🟠 Ruim - Correção necessária\n- **0-49**: 🔴 Crítica - Ação urgente requerida\n\n### 🛠️ Ações Recomendadas por Status:\n\n#### 🚨 Atenção Urgente (Crítico):\n- Investigação imediata da causa raiz\n- Verificar estabilizadores e no-breaks\n- Avaliar necessidade de reguladores de tensão\n- Considerar isolamento do circuito problemático\n\n#### ⚠️ Atenção (Muitos incidentes):\n- Monitoramento intensivo\n- Planejamento de manutenção preventiva\n- Análise de padrões de ocorrência\n\n#### 👁️ Monitorar (Poucos incidentes):\n- Acompanhamento de rotina\n- Registro para análise de tendências\n- Manutenção preventiva programada\n\n### 💡 Boas Práticas:\n\n1. **Estabilizadores de tensão**: Protegem contra variações moderadas\n2. **No-breaks (UPS)**: Protegem contra quedas e picos\n3. **Reguladores de tensão**: Mantêm tensão constante em ambientes críticos\n4. **Aterramento adequado**: Fundamental para qualidade de energia\n5. **Manutenção preventiva**: Inspeção regular das instalações elétricas\n\n### 📈 Impactos Financeiros:\n\n- **Equipamentos danificados**: Custos de substituição\n- **Downtime**: Perda de produtividade e receita\n- **Manutenção corretiva**: 3-5x mais cara que preventiva\n- **Multas regulatórias**: ANEEL pode aplicar penalidades em casos graves",
+        "mode": "markdown"
       },
       "pluginVersion": "12.2.1",
-      "targets": [
-        {
-          "datasource": "JSON API",
-          "fields": [
-            {
-              "jsonPath": "$.device",
-              "name": "device",
-              "type": "string"
-            },
-            {
-              "jsonPath": "$.total_issues",
-              "name": "total",
-              "type": "number"
-            }
-          ],
-          "method": "GET",
-          "refId": "A",
-          "url": "${BASE_URL}/tensao/aparelhos-afetados/list?location=$location&issue_type=all"
-        }
-      ],
-      "title": "Distribuição de Problemas por Dispositivo",
-      "type": "bargauge"
-    },
-    {
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 34
-      },
-      "id": 13,
-      "options": {
-        "displayLabels": [
-          "name",
-          "value",
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "sort": "desc",
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.1",
-      "targets": [
-        {
-          "datasource": "JSON API",
-          "fields": [
-            {
-              "jsonPath": "$.devices_with_picos",
-              "name": "Picos",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.devices_with_depressoes",
-              "name": "Depressões",
-              "type": "number"
-            }
-          ],
-          "method": "GET",
-          "refId": "A",
-          "url": "${BASE_URL}/tensao/aparelhos-afetados/count?location=$location&issue_type=all"
-        }
-      ],
-      "title": "Distribuição: Picos vs Depressões",
-      "type": "piechart"
+      "title": "Guia de Interpretação e Ações",
+      "type": "text"
     }
   ],
   "preload": false,
   "refresh": "5m",
   "schemaVersion": 42,
-  "tags": [],
+  "tags": [
+    "energia",
+    "tensao",
+    "qualidade",
+    "monitoramento"
+  ],
   "templating": {
     "list": [
       {
-        "current": {},
-        "label": "Localização",
-        "name": "location",
-        "options": [
-          {
-            "selected": true
-          }
-        ],
-        "type": "textbox"
+        "current": {
+          "selected": false,
+          "text": "JSON API",
+          "value": "cf2jywd1gvo5cc"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "DS_JSON_API",
+        "options": [],
+        "query": "marcusolsson-json-datasource",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       },
       {
-        "current": {},
-        "label": "Dispositivo",
-        "name": "device",
+        "current": {
+          "selected": false,
+          "text": "https://your-api-endpoint.com",
+          "value": "https://your-api-endpoint.com"
+        },
+        "hide": 0,
+        "label": "Base URL",
+        "name": "BASE_URL",
         "options": [
           {
-            "selected": true
+            "selected": true,
+            "text": "https://your-api-endpoint.com",
+            "value": "https://your-api-endpoint.com"
           }
         ],
+        "query": "https://your-api-endpoint.com",
+        "skipUrlSync": false,
         "type": "textbox"
       }
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-24h",
     "to": "now"
   },
-  "timepicker": {},
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
   "timezone": "browser",
-  "title": "Análise de Tensão",
-  "uid": "tensao-analise",
+  "title": "Análise de Qualidade de Tensão Elétrica",
+  "uid": "tensao-qualidade",
   "version": 1
 }
