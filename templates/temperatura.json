@@ -18,15 +18,58 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 0,
   "links": [],
   "panels": [
     {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# 📊 Dashboard de Temperatura\n\nEsta dashboard apresenta a variação de temperatura dos equipamentos e locais críticos, permitindo identificar tendências de aquecimento, resfriamento e estabilidade térmica ao longo do tempo.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "12.2.1",
+      "title": "",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 10,
+      "panels": [],
+      "title": "Equipamentos",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "df0h9tj3bx24ge"
+        "uid": "cf2kym062hi4gd"
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -36,109 +79,8 @@
                 "value": 0
               },
               {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 0,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "min"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "cacheDurationSeconds": 300,
-          "fields": [
-            {
-              "jsonPath": "$[*].temp",
-              "name": "valor",
-              "type": "number"
-            }
-          ],
-          "method": "GET",
-          "queryParams": "",
-          "refId": "B",
-          "urlPath": "/telemetria"
-        }
-      ],
-      "title": "Mínimo",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "marcusolsson-json-datasource",
-        "uid": "df0h9tj3bx24ge"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
+                "color": "#EAB839",
+                "value": 60
               },
               {
                 "color": "red",
@@ -151,18 +93,144 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 4
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "fields": [
+            {
+              "jsonPath": "$[*].temperatura",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "location",
+              "${location}"
+            ],
+            [
+              "device_id",
+              "${device_id}"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/temperatura/correlacao-temperatura-umidade"
+        }
+      ],
+      "title": "⬆️ Máxima registada",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "cf2kym062hi4gd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-yellow",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 35,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "orange",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
         "w": 20,
         "x": 4,
-        "y": 0
+        "y": 4
       },
       "id": 1,
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "variance"
+          ],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": false
         },
         "tooltip": {
           "hideZeros": false,
@@ -170,7 +238,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.2.1",
       "targets": [
         {
           "cacheDurationSeconds": 300,
@@ -180,7 +248,7 @@
           },
           "fields": [
             {
-              "jsonPath": "$[*].temp",
+              "jsonPath": "$[*].temperatura",
               "language": "jsonpath",
               "name": "Temperatura",
               "type": "number"
@@ -188,27 +256,41 @@
             {
               "jsonPath": "$[*].ts",
               "language": "jsonpath",
-              "name": "",
+              "name": "Tempo",
               "type": "time"
             }
           ],
           "hide": false,
           "method": "GET",
+          "params": [
+            [
+              "location",
+              "${location}"
+            ],
+            [
+              "device_id",
+              "${device_id}"
+            ]
+          ],
           "queryParams": "",
           "refId": "A",
-          "urlPath": "/telemetria"
+          "urlPath": "/temperatura/correlacao-temperatura-umidade"
         }
       ],
-      "title": "Temperatura",
+      "title": "🌡️ Temperatura x Tempo",
+      "transparent": true,
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "df0h9tj3bx24ge"
+        "uid": "cf2kym062hi4gd"
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -218,65 +300,84 @@
                 "value": 0
               },
               {
+                "color": "orange",
+                "value": 40
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 70
               }
             ]
-          }
+          },
+          "unit": "celsius"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 4,
         "w": 4,
         "x": 0,
-        "y": 3
+        "y": 8
       },
-      "id": 3,
+      "id": 2,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
+        "colorMode": "background",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
-        "percentChangeColorMode": "standard",
+        "percentChangeColorMode": "inverted",
         "reduceOptions": {
           "calcs": [
-            "max"
+            "min"
           ],
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
+        "showPercentChange": true,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.2.1",
       "targets": [
         {
           "cacheDurationSeconds": 300,
           "fields": [
             {
-              "jsonPath": "$[*].temp",
+              "jsonPath": "$[*].temperatura",
               "name": "valor",
               "type": "number"
             }
           ],
           "method": "GET",
+          "params": [
+            [
+              "location",
+              "${location}"
+            ],
+            [
+              "device_id",
+              "${device_id}"
+            ]
+          ],
           "queryParams": "",
-          "refId": "C",
-          "urlPath": "/telemetria"
+          "refId": "B",
+          "urlPath": "/temperatura/correlacao-temperatura-umidade"
         }
       ],
-      "title": "Máximo",
+      "title": "⬇️ Mínima registrada",
+      "transparent": true,
       "type": "stat"
     },
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "df0h9tj3bx24ge"
+        "uid": "cf2kym062hi4gd"
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -286,8 +387,12 @@
                 "value": 0
               },
               {
+                "color": "orange",
+                "value": 15
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 30
               }
             ]
           }
@@ -295,14 +400,14 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 4,
         "w": 4,
         "x": 0,
-        "y": 6
+        "y": 12
       },
-      "id": 4,
+      "id": 5,
       "options": {
-        "colorMode": "value",
+        "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
@@ -318,40 +423,334 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.2.1",
       "targets": [
         {
           "cacheDurationSeconds": 300,
           "fields": [
             {
-              "jsonPath": "$[*].temp",
-              "name": "value"
+              "jsonPath": "$[*].delta",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$[*].date",
+              "language": "jsonpath",
+              "name": "",
+              "type": "time"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "device_id",
+              "${device_id}"
+            ],
+            [
+              "location",
+              "${location}"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/temperatura/delta-temperatura-diario"
+        }
+      ],
+      "title": "📈 Variancia",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 11,
+      "panels": [],
+      "title": "Equipamentos x Clima",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "cf2kym062hi4gd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "light-orange",
+            "mode": "shades"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 0,
+        "y": 17
+      },
+      "id": 12,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "fields": [
+            {
+              "jsonPath": "$[*].temperatura"
             }
           ],
           "method": "GET",
           "queryParams": "",
-          "refId": "D",
-          "urlPath": "/telemetria"
+          "refId": "A",
+          "urlPath": "/temperatura/correlacao-temperatura-umidade"
         }
       ],
-      "title": "Média",
-      "type": "stat"
+      "title": "🔥 Risco ao equipamento",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "cf2kym062hi4gd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "light-blue",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 35,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 100
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 20,
+        "x": 4,
+        "y": 17
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [
+            "variance"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.2.1",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "df0h9tj3bx24ge"
+          },
+          "fields": [
+            {
+              "jsonPath": "$[*].ts",
+              "language": "jsonpath",
+              "name": "Tempo",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$[*].humidity",
+              "language": "jsonpath",
+              "name": "Humidade",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "params": [
+            [
+              "location",
+              "${location}"
+            ],
+            [
+              "device_id",
+              "${device_id}"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/temperatura/correlacao-temperatura-umidade"
+        }
+      ],
+      "title": "💧 Umidade x Tempo",
+      "transparent": true,
+      "type": "timeseries"
     }
   ],
   "preload": false,
   "refresh": "",
   "schemaVersion": 42,
-  "tags": [],
+  "tags": [
+    "Temperatura",
+    "Humidade",
+    "Dados Meteorologicos"
+  ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "text": "NOC - Network Operations Center",
+          "value": "NOC - Network Operations Center"
+        },
+        "definition": "",
+        "label": "Localização",
+        "name": "location",
+        "options": [],
+        "query": {
+          "cacheDurationSeconds": 300,
+          "fields": [
+            {
+              "jsonPath": "$[*].location"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "",
+          "urlPath": "/temperatura/correlacao-temperatura-umidade"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "Estação de Monitoramento",
+          "value": "Estação de Monitoramento"
+        },
+        "definition": "",
+        "label": "Dispositivo",
+        "name": "device_id",
+        "options": [],
+        "query": {
+          "cacheDurationSeconds": 300,
+          "fields": [
+            {
+              "jsonPath": "$[*].device_id"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "",
+          "urlPath": "/temperatura/correlacao-temperatura-umidade"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
   },
   "time": {
-    "from": "2025-10-17T20:54:45.983Z",
-    "to": "2025-10-21T22:24:26.681Z"
+    "from": "2025-10-03T21:39:25.550Z",
+    "to": "2025-10-08T19:54:55.692Z"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Dashboard de Temperatura",
   "uid": "consumo-energia",
-  "version": 8
+  "version": 24
 }
