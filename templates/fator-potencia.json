@@ -1,88 +1,87 @@
 {
   "id": null,
-  "uid": "consumo-energia",
-  "title": "Dashboard de Sensores",
-  "schemaVersion": 38,
+  "title": "PLD Correlation Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 39,
   "version": 1,
+  "refresh": "30s",
   "panels": [
     {
+      "id": 1,
       "type": "timeseries",
-      "title": "Fator de Potência",
+      "title": "PLD Value Over Time",
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "json-api"
+        "uid": "default"
       },
       "targets": [
         {
           "refId": "A",
-          "urlPath": "/sensores",
           "method": "GET",
+          "urlPath": "/fator-potencia",
+          "params": "location=${location}",
+          "data": "",
+          "jsonPath": "$",
           "fields": [
-            { "name": "time", "jsonPath": "items[*].ts" },
-            { "name": "value", "jsonPath": "items[*].data" },
-            { "name": "deviceId", "jsonPath": "items[*].deviceId" }
+            { "name": "time", "jsonPath": "$.ts" },
+            { "name": "pld_value", "jsonPath": "$.pld_value" },
+            { "name": "data", "jsonPath": "$.data" }
           ]
         }
       ],
       "fieldConfig": {
-        "defaults": { "unit": "kWh" }
+        "defaults": {
+          "unit": "none",
+          "color": { "mode": "palette-classic" },
+          "custom": { "drawStyle": "line" }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": { "showLegend": true },
+        "tooltip": { "mode": "single" }
       }
     },
     {
-      "type": "stat",
-      "title": "Mínimo",
-      "datasource": { "type": "marcusolsson-json-datasource", "uid": "json-api" },
+      "id": 2,
+      "type": "table",
+      "title": "Sensor Data Correlation",
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "default"
+      },
       "targets": [
         {
           "refId": "B",
-          "urlPath": "/sensores",
           "method": "GET",
-          "fields": [{ "name": "value", "jsonPath": "items[*].data" }]
+          "urlPath": "/fator-potencia",
+          "params": "location=${location}",
+          "jsonPath": "$",
+          "fields": [
+            { "name": "ts", "jsonPath": "$.ts" },
+            { "name": "data", "jsonPath": "$.data" },
+            { "name": "pld_value", "jsonPath": "$.pld_value" }
+          ]
         }
-      ],
-      "options": { "reduceOptions": { "calcs": ["min"] } }
-    },
-    {
-      "type": "stat",
-      "title": "Máximo",
-      "datasource": { "type": "marcusolsson-json-datasource", "uid": "json-api" },
-      "targets": [
-        {
-          "refId": "C",
-          "urlPath": "/sensores",
-          "method": "GET",
-          "fields": [{ "name": "value", "jsonPath": "items[*].data" }]
-        }
-      ],
-      "options": { "reduceOptions": { "calcs": ["max"] } }
-    },
-    {
-      "type": "stat",
-      "title": "Média",
-      "datasource": { "type": "marcusolsson-json-datasource", "uid": "json-api" },
-      "targets": [
-        {
-          "refId": "D",
-          "urlPath": "/sensores",
-          "method": "GET",
-          "fields": [{ "name": "value", "jsonPath": "items[*].data" }]
-        }
-      ],
-      "options": { "reduceOptions": { "calcs": ["mean"] } }
-    },
-    {
-      "type": "stat",
-      "title": "Mediana",
-      "datasource": { "type": "marcusolsson-json-datasource", "uid": "json-api" },
-      "targets": [
-        {
-          "refId": "E",
-          "urlPath": "/sensores",
-          "method": "GET",
-          "fields": [{ "name": "value", "jsonPath": "items[*].data" }]
-        }
-      ],
-      "options": { "reduceOptions": { "calcs": ["median"] } }
+      ]
     }
-  ]
+  ],
+  "templating": {
+    "list": [
+      {
+        "type": "query",
+        "name": "location",
+        "label": "Location",
+        "datasource": {
+          "type": "marcusolsson-json-datasource",
+          "uid": "default"
+        },
+        "query": "/fator-potencia/locations",
+        "jsonPath": "$.locations[*]",
+        "refresh": 1,
+        "includeAll": true,
+        "multi": false
+      }
+    ]
+  }
 }
